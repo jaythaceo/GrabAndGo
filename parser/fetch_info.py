@@ -1,4 +1,3 @@
 # XML Parser
+import urllib
 from xml.dom import minidom
-
-files = open('test.xml')
