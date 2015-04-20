@@ -2,11 +2,20 @@
 import urllib
 from bs4 import BeautifulSoup
 
-URL = 'http://www.cbssports.com/mlb/stats/playersort/mlb/year-2015-season-regularseason-category-batting-qualifying-1'
+"""
 
+"""
+
+
+URL = 'http://espn.go.com/mlb/stats/batting/_/year/2015/seasontype/2'
 html = urllib.urlopen(URL).read()
 soup = BeautifulSoup(html)
-tags = soup('tr')
+tags = soup('oddrow')
 
-for tag in tags:
-  tag.get('id', None)
+"""
+for tag in tags:    # Players IDs
+  tag.get('id')
+"""
+
+for link in tags:
+  print link.get('t')
