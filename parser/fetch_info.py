@@ -1,21 +1,31 @@
 # XML Parser
-import urllib
+import requests
 from bs4 import BeautifulSoup
 
-"""
+url = 'http://www.elections.ny.gov/CountyBoards.html'
+page = requests.get(url)
+soup = BeautifulSoup(page.content)
 
-"""
+# Get the county URLS from the <area> tag
+counties = soup.select("area")
+county_urls = [u.get('href') for u in counties]
 
+# skip the dummy URL
+county_urls = county_urls[1:]
 
-URL = 'http://espn.go.com/mlb/stats/batting/_/year/2015/seasontype/2'
-html = urllib.urlopen(URL).read()
-soup = BeautifulSoup(html)
-tags = soup('oddrow')
+county_urls = list(set(county_urls))
 
-"""
-for tag in tags:    # Players IDs
-  tag.get('id')
-"""
+# Store results
+data = []
 
-for link in tags:
-  print link.get('t')
+for url in county_urls:
+  print "Fetching %s" % url
+  page = requests.get(url)
+  soup = BeautifulSoup(page.content)
+  lines = [s for s in soup.select("th") [0].strings]
+  data.append(lines)
+
+output = open("boards.txt", "w")
+for row in data:
+  output.write("\t".join(row) + "\n")
+output.close()
