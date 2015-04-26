@@ -26,7 +26,11 @@ soup = BeautifulSoup(response)
 ## 20,989,444.21<BR>
 ## 4,220,617.81<BR>
 ## 224,057,615.23<BR><BR></TD>
+<<<<<<< HEAD
+taxes = soup.fetch('td', {'align':'right', 'valign':'top'}) # Bug needs fixing
+=======
 taxes = soup.fetch('td', {'align':'right', 'valign':'top'}) # Bug "error" needs fixed
+>>>>>>> new-features
 
 tax_list = []
 for tax in taxes :
